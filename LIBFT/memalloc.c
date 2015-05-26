@@ -6,7 +6,7 @@
 /*   By: yfuks <yfuks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/06 19:21:44 by yfuks             #+#    #+#             */
-/*   Updated: 2014/11/10 14:52:55 by yfuks            ###   ########.fr       */
+/*   Updated: 2014/11/24 15:52:57 by yfuks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	*ft_memalloc(size_t size)
 {
 	void	*result;
 
-	result = malloc(size);
+	result = malloc(size + 1);
 	if (result != NULL)
 	{
-		ft_strclr((char *)result);
+		ft_memset(result, '\0', size);
 	}
 	return (result);
 }

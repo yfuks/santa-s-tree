@@ -6,7 +6,7 @@
 #    By: yfuks <yfuks@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/10 20:41:40 by yfuks             #+#    #+#              #
-#    Updated: 2014/11/24 15:38:27 by yfuks            ###   ########.fr        #
+#    Updated: 2015/05/25 17:30:57 by yfuks            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -70,7 +70,14 @@ SRC =	atoi.c		\
 		strtrim.c	\
 		tolower.c	\
 		toupper.c	\
-		strappend.c
+		strappend.c	\
+		strchngchr.c\
+		get_next_line.c\
+		atol.c		\
+		swap.c		\
+		putfloat.c	\
+		putlong.c	\
+		fabs.c		
 
 HEAD = ./includes
 
@@ -132,23 +139,33 @@ OBJ = 	atoi.o      \
         strtrim.o   \
         tolower.o   \
         toupper.o	\
-		strappend.o
+		strappend.o	\
+		strchngchr.o\
+		get_next_line.o\
+		atol.o		\
+		swap.o		\
+		putfloat.o	\
+		putlong.o	\
+		fabs.o
+
+ECHO = echo
 
 all : $(NAME)
 
-$(NAME):
-	@echo "Compiling .."
-	@gcc -Wall -Wextra -Werror -c $(SRC) -I $(HEAD) && ar rc $(NAME) $(OBJ)
-	@echo "Done !"
+$(NAME): $(OBJ)
+	@ar rc $(NAME) $(OBJ)
+	@$(ECHO) "[\033[1;32m√\033[m]" $@
+
+%.o: %.c
+	@clang -Wall -Wextra -Werror -I $(HEAD) -o $@ -c $<
+	@$(ECHO) "[\033[1;32m√\033[m]" $@
 
 clean:
 	@echo "Remove .o  ..."
 	@/bin/rm -f $(OBJ)
-	@echo "Done !"
 
 fclean: clean
 	@echo "Remove lib ..."
 	@/bin/rm -f $(NAME)
-	@echo "Done !" 
 
 re: fclean all

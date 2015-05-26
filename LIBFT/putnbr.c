@@ -6,7 +6,7 @@
 /*   By: yfuks <yfuks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/05 14:56:58 by yfuks             #+#    #+#             */
-/*   Updated: 2014/11/05 15:02:28 by yfuks            ###   ########.fr       */
+/*   Updated: 2015/03/10 03:38:24 by yfuks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 void	ft_putnbr(int n)
 {
-	ft_putstr(ft_itoa(n));
+	char	*str;
+
+	str = ft_itoa(n);
+	ft_putstr(str);
+	free(str);
 }

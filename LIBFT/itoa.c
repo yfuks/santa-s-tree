@@ -6,37 +6,52 @@
 /*   By: yfuks <yfuks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 16:33:14 by yfuks             #+#    #+#             */
-/*   Updated: 2014/11/07 14:19:28 by yfuks            ###   ########.fr       */
+/*   Updated: 2015/03/10 04:14:52 by yfuks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa(int n)
+static void		lengths(int n, size_t *len, int *weight)
 {
-	char	*number;
+	*len = 1;
+	if (n >= 0)
+	{
+		*len = 0;
+		n = -n;
+	}
+	*weight = 1;
+	while (n / *weight < -9)
+	{
+		*weight *= 10;
+		*len += 1;
+	}
+}
 
-	number = (char *)ft_memalloc(10);
-	if (n >= 0 && number)
+char			*ft_itoa(int n)
+{
+	size_t		len;
+	int			weight;
+	size_t		cur;
+	char		*str;
+
+	lengths(n, &len, &weight);
+	str = (char *)malloc(sizeof(*str) * (len + 1));
+	if (str == NULL)
+		return (NULL);
+	cur = 0;
+	if (n < 0)
 	{
-		*--number = '0' + (n % 10);
-		n /= 10;
-		while (n != 0)
-		{
-			*--number = '0' + (n % 10);
-			n /= 10;
-		}
+		str[cur] = '-';
+		cur++;
 	}
-	else if (number)
+	if (n > 0)
+		n = -n;
+	while (weight >= 1)
 	{
-		*--number = '0' - (n % 10);
-		n /= 10;
-		while (n != 0)
-		{
-			*--number = '0' - (n % 10);
-			n /= 10;
-		}
-		*--number = '-';
+		str[cur++] = -(n / weight % 10) + 48;
+		weight /= 10;
 	}
-	return (ft_strdup(number));
+	str[cur] = '\0';
+	return (str);
 }
